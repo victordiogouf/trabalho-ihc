@@ -38,7 +38,7 @@ export default function RegisterPersonalInfo() {
     return (
       <main className="flex flex-col items-center justify-center h-screen">
         <div className="w-full p-6">
-          <h1 className="text-3xl font-semibold mt-2 text-center">Cadastrado concluído!</h1>
+          <h1 className="text-3xl font-semibold mt-2 text-center">Cadastro concluído!</h1>
         </div>
       </main>
     );

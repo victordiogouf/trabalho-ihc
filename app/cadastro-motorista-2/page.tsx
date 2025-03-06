@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function CadastroMotorista2() {
@@ -32,6 +32,16 @@ export default function CadastroMotorista2() {
     setRegistered(true);
   });
 
+  useEffect(() => {
+    const data = localStorage.getItem('motorista-2');
+    if (data) {
+      const parsed = JSON.parse(data);
+      form.setValue('identity', parsed.identity);
+      form.setValue('cpf', parsed.cpf);
+      form.setValue('cnh', parsed.cnh);
+    }
+  }, [form]);
+
   if (registered) {
     setTimeout(() => router.push('/'), 2000);
 
@@ -47,7 +57,7 @@ export default function CadastroMotorista2() {
   return (
     <>
     <div className='flex justify-between'>
-      <Avatar className='mt-6 ml-4' onClick={() => router.back()}>
+      <Avatar className='mt-6 ml-4' onClick={() => {router.back(); localStorage.setItem('motorista-2', JSON.stringify(form.getValues()))}}>
         <AvatarImage className="w-6 h-6" src="/back.png" alt="back" />
         <AvatarFallback>{"<"}</AvatarFallback>
       </Avatar>

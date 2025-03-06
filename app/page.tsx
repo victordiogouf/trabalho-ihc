@@ -1,6 +1,13 @@
+'use client'
+
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   return (
     <main className="flex flex-col items-center justify-center h-screen p-6">
       <h1 className="text-2xl font-bold">Trabalho IHC</h1>

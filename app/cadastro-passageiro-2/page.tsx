@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useRouter } from 'next/navigation';
 
@@ -32,6 +32,16 @@ export default function RegisterPersonalInfo() {
     setRegistered(true);
   });
 
+  useEffect(() => {
+    const data = localStorage.getItem('passageiro-2');
+    if (data) {
+      const parsed = JSON.parse(data);
+      form.setValue('name', parsed.name);
+      form.setValue('lastName', parsed.lastName);
+      form.setValue('phone', parsed.phone);
+    }
+  }, [form]);
+
   if (registered) {
     setTimeout(() => router.push('/'), 2000);
 
@@ -47,7 +57,7 @@ export default function RegisterPersonalInfo() {
   return (
     <>
     <div className='flex justify-between'>
-      <Avatar className='mt-6 ml-4' onClick={() => router.back()}>
+      <Avatar className='mt-6 ml-4' onClick={() => {router.back(); localStorage.setItem('passageiro-2', JSON.stringify(form.getValues()));}}>
         <AvatarImage className="w-6 h-6" src="/back.png" alt="back" />
         <AvatarFallback>{"<"}</AvatarFallback>
       </Avatar>

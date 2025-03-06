@@ -10,6 +10,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
+import { useEffect } from 'react';
 
 export default function RegisterLogin() {
   const form = useForm();
@@ -26,8 +27,19 @@ export default function RegisterLogin() {
       return;
     }
 
+    localStorage.setItem('passageiro-1', JSON.stringify(data));
+
     router.push('/cadastro-passageiro-2');
   });
+
+  useEffect(() => {
+    const data = localStorage.getItem('passageiro-1');
+    if (data) {
+      const parsed = JSON.parse(data);
+      form.setValue('email', parsed.email);
+      form.setValue('password', parsed.password);
+    }
+  }, [form])
 
   return (
     <>

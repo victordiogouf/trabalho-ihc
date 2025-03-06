@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useEffect } from 'react';
 
 export default function CadastroMotorista1() {
   const form = useForm();
@@ -28,8 +29,20 @@ export default function CadastroMotorista1() {
       return;
     }
 
+    localStorage.setItem('motorista-1', JSON.stringify(data));
+
     router.push('/cadastro-motorista-2');
   });
+
+  useEffect(() => {
+    const data = localStorage.getItem('motorista-1');
+    if (data) {
+      const parsed = JSON.parse(data);
+      form.setValue('full-name', parsed['full-name']);
+      form.setValue('birthday', parsed.birthday);
+      form.setValue('sex', parsed.sex);
+    }
+  }, [form]);
 
   return (
     <>

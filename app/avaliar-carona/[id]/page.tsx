@@ -51,7 +51,7 @@ export default function AvaliarCarona2({ params } : { params: Promise<{ id: stri
   });
 
   if (rated) {
-    setTimeout(() => router.push('/'), 2000);
+    setTimeout(() => {router.push('/avaliar-carona-1')}, 2000);
 
     return (
       <main className="flex flex-col items-center justify-center h-screen">

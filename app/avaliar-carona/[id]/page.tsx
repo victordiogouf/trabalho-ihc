@@ -14,6 +14,7 @@ export default function AvaliarCarona2({ params } : { params: Promise<{ id: stri
   const [rated, setRated] = useState(false);
   const [found, setFound] = useState<Carona | undefined>(undefined);
   const router = useRouter();
+  const form = useForm();
 
   useEffect(() => {
     params.then(({ id }) => {
@@ -31,9 +32,8 @@ export default function AvaliarCarona2({ params } : { params: Promise<{ id: stri
         form.setValue('comentario', data.comentario);
       }
     });
-  }, [params]);
+  }, [params, form]);
 
-  const form = useForm();
 
   if (!found) {
     return (<h1 className="w-full h-full text-center mt-26 text-2xl">Carona não encontrada</h1>)
